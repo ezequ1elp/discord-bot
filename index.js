@@ -45,7 +45,14 @@ client.on("ready", () => {
   console.log(`✅ ${client.user.tag} está ONLINE`);
 
   const guild = client.guilds.cache.first();
-  if (guild) updateRoleCounters(guild);
+  if (guild) {
+    updateRoleCounters(guild);
+
+    // 🔄 Actualiza contadores cada 5 minutos
+    setInterval(() => {
+      updateRoleCounters(guild);
+    }, 5 * 60 * 1000);
+  }
 
   // Ping automático cada hora para mantener la Developer Badge
   const channelId = process.env.PING_CHANNEL_ID;
